@@ -20,8 +20,8 @@ export default function ProductList() {
 
       {/* 2 items per row, 1rem gap */}
       <div className="grid grid-cols-2 gap-4">
-        {products.map(p => (
-          <ProductCard key={p.id} data={p} />
+        {Array.isArray(products) && products.map(p => (
+          <ProductCard key={p.id || Math.random()} data={p} />
         ))}
       </div>
     </section>

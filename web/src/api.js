@@ -1,15 +1,13 @@
-// import axios from 'axios';
-// export default axios.create({ baseURL: '/api' });
-
+// web/src/api.js
 import axios from 'axios';
 
 const api = axios.create({ baseURL: '/api' });
 
-// Attach JWT on every request if present
-api.interceptors.request.use(cfg => {
+// attach JWT if present
+api.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
-  if (token) cfg.headers.Authorization = `Bearer ${token}`;
-  return cfg;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
 
 export default api;

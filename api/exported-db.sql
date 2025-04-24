@@ -9,6 +9,21 @@ CREATE TABLE categories (
   name VARCHAR(50) NOT NULL UNIQUE
 );
 
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE products
+  ADD COLUMN user_id INT NOT NULL AFTER id,
+  ADD CONSTRAINT fk_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE;
+
+
+
 -- ③ primary table
 CREATE TABLE products (
   id          INT PRIMARY KEY AUTO_INCREMENT,

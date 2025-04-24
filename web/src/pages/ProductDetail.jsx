@@ -26,7 +26,7 @@ export default function ProductDetail() {
   );
 
   return (
-    <section className="max-w-xl mx-auto p-4">
+    <section className="max-w-s mx-auto p-4">
       <img src={`/uploads/${item.image}`} className="w-full rounded" />
       <h1 className="text-2xl font-bold mt-4">{item.title}</h1>
       <p className="text-gray-500">{item.category}</p>
