@@ -1,10 +1,27 @@
-const router = require('express').Router();
-const { signUp, signIn } = require('../controllers/authController');
-const { signUpRules, signInRules } = require('../validators/userValidators');
+const express = require('express');
+const { body } = require('express-validator');
+const { signup, login } = require('../controllers/authController');
 
-// Registration & login endpoints
-router.post('/', signUpRules, signUp);
-router.post('/sign-in', signInRules, signIn);
+const router = express.Router();
+
+// Signup route
+router.post(
+    '/sign-up',
+    [
+        body('email').isEmail().withMessage('Enter a valid email'),
+        body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+    ],
+    signup
+);
+
+// Login route
+router.post(
+    '/sign-in',
+    [
+        body('email').isEmail().withMessage('Enter a valid email'),
+        body('password').notEmpty().withMessage('Password is required')
+    ],
+    login
+);
 
 module.exports = router;
-// This code defines an Express router for user authentication. It includes routes for user registration and login, applying validation rules to the request body using express-validator. The signUp and signIn functions are imported from a controller module to handle the respective requests. The router is then exported for use in the main application.

@@ -9,18 +9,20 @@ const morgan     = require('morgan');
 const path       = require('path');
 
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
 // --- Middlewares (order matters) ---
 app.use(morgan('dev'));                       // Small request logger
 app.use(cors());                              // Allow React (different port)
-app.use(bodyParser.json());                   // Parse JSON bodies
+app.use(express.json());                      // Parse JSON bodies
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //    ↑ serve images publicly  e.g. http://localhost:4000/uploads/clothing1.jpg
 
 // --- API routes ---
 app.use('/api/products', productRoutes);      // All product CRUD
+app.use('/api/users', authRoutes);            // Mount auth routes
 
 // --- Global error handler ---
 app.use((err, req, res, _next) => {
@@ -34,6 +36,7 @@ app.get('/', (req, res) => {
 );
 
 // --- Start server ---
-app.listen(process.env.PORT, () =>
-  console.log(`🚀 API ready at http://localhost:${process.env.PORT}`)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () =>
+  console.log(`🚀 API ready at http://localhost:${PORT}`)
 );

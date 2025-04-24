@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext';
  * - When authenticated (has token): shows Products link and Log Out button.
  */
 export default function Navbar() {
-  const { token, logout } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext); // Use token to check authentication
 
   return (
     <nav className="bg-white shadow-md p-4 flex items-center justify-between">
@@ -37,10 +37,10 @@ export default function Navbar() {
         ) : (
           <>
             {/* When not logged in, show both Sign In and Sign Up */}
-            <Link to="/sign-in" className="hover:text-blue-600">
+            <Link to="/sign-in" className="hover:text-blue-200">
               Sign In
             </Link><br></br>
-            <Link to="/sign-up" className="hover:text-blue-600">
+            <Link to="/sign-up" className="hover:text-blue-200">
               Sign Up
             </Link>
           </>
